@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+#coding=utf-8
+
+__author='tach'
+# 列出文件
+import os,sys
+
+def search(path,key):
+    result=[]
+    for file in os.listdir(path):
+        file=os.path.join(path,file)
+        if os.path.isfile(file) and key in os.path.split(file)[1]:
+            result.append(file)
+        if os.path.isdir(file):
+            result.extend(search(file,key))
+    return result
+
+if __name__=='__main__':
+    if len(sys.argv)<3:
+        print 'Usage:path,key'
+    else:
+        path=os.path.abspath(sys.argv[1])
+        key=sys.argv[2]
+        print search(path,key)
+
